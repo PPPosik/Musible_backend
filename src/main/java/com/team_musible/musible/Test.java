@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class Test {
-    @RequestMapping("/")
+    @RequestMapping("/TEST")
     @ResponseBody
     public String index() {
         return "Spring test";
