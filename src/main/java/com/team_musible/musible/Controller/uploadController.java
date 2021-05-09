@@ -21,7 +21,7 @@ public class uploadController {
         List<String> list = new ArrayList<>();
         for (MultipartFile file : files) {
             String originalfileName = file.getOriginalFilename();
-            File dest = new File("F:/MusibleImage/" + originalfileName);
+            File dest = new File(System.getenv("MUSIBLE_IMAGE") + originalfileName);
             file.transferTo(dest);
         }
         return list;
