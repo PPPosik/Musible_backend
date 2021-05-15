@@ -28,19 +28,32 @@ public class MidiFileController {
         String args = "/home/musible_admin/Musible/MUSIBLE_OpenCV/score/score2.jpg";
         List<Pair<Integer, Integer>> midiMetaData = ConvertSheet.exec(args);
 
+        int rest = 0;
+        boolean lastWasRest = false;
         for (int i = 0; i < midiMetaData.size(); i++) {
             System.out.println(midiMetaData.get(i).getFirst() + " " + midiMetaData.get(i).getSecond());
-            int tmp = midiMetaData.get(i).getSecond();
-            if (tmp > 128)
-                tmp = 8;
-            mf.noteOnOffNow(tmp, midiMetaData.get(i).getSecond(), 127);
+            if(midiMetaData.get(i).getSecond() < 0) {
+                rest += midiMetaData.get(i).getFirst();
+                lastWasRest = true;
+            }
+            else {
+                if(lastWasRest) {
+                    mf.noteOn(rest, midiMetaData.get(i).getSecond(), 127);
+                    mf.noteOff(midiMetaData.get(i).getFirst(), midiMetaData.get(i).getSecond());
+                }
+                else {
+                    mf.noteOnOffNow(midiMetaData.get(i).getFirst(), midiMetaData.get(i).getSecond(), 127);
+                }
+                rest = 0;
+                lastWasRest = false;
+            }
         }
 
         if (midiMetaData.size() > 0) {
             mf.progChange(10);
             mf.writeToFile(System.getenv("MIDIPATH") + "/" + fileName + ".mid");
             System.out.println("MIDIPATH " + System.getenv("MIDIPATH"));
-
+            
             return fileName + ".mid succesfully made";
         }
         else {
