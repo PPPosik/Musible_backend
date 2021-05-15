@@ -10,7 +10,7 @@ public class ImageUploadService {
     public void uploadImage(List<MultipartFile> files) throws IOException {
         for(MultipartFile file : files){
             String originalfileName = file.getOriginalFilename();
-            File dest = new File(System.getenv("MUSIBLE_IMAGE") + originalfileName);
+            File dest = new File(System.getenv("IMAGEPATH") + originalfileName);
             file.transferTo(dest);
         }
     }
