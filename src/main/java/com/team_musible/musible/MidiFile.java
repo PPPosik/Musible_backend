@@ -1,8 +1,7 @@
 package com.team_musible.musible;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Vector;
+import java.io.*;
+import java.util.*;
 
 public class MidiFile {
     // Note lengths
@@ -77,7 +76,7 @@ public class MidiFile {
     public void writeToFile(String filename) throws IOException {
         FileOutputStream fos = new FileOutputStream(filename);
         fos.write(intArrayToByteArray(header));
-
+        
         // Calculate the amount of track data
         // _Do_ include the footer but _do not_ include the
         // track header
@@ -119,7 +118,7 @@ public class MidiFile {
 
     /**
      * Convert an array of integers which are assumed to contain
-     *
+     * 
      * unsigned bytes into an array of bytes
      */
 
@@ -165,9 +164,9 @@ public class MidiFile {
 
     /**
      * Store a note-on event followed by a note-off event a note length
-     *
+     * 
      * later. There is no delta value — the note is assumed to
-     *
+     * 
      * follow the previous one with no gap.
      */
 
@@ -182,7 +181,7 @@ public class MidiFile {
         for (int i = 0; i < sequence.length; i += 2) {
             int note = sequence[i];
             int duration = sequence[i + 1];
-
+            
             if (note < 0) {
                 // This is a rest
                 restDelta += duration;
