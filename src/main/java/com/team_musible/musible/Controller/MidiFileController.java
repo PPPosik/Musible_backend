@@ -1,4 +1,7 @@
-package com.team_musible.musible;
+package com.team_musible.musible.Controller;
+
+import com.team_musible.musible.Module.MidiFile;
+import com.team_musible.musible.Module.ConvertSheet;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @Controller
-public class MakeMidiFile {
+public class MidiFileController {
     @RequestMapping("/makeMidiFile")
     @ResponseBody
     public String create() throws Exception {
@@ -67,6 +70,8 @@ public class MakeMidiFile {
         // mf.progChange(10);
         mf.noteSequenceFixedVelocity(sequence, 127);
         mf.writeToFile(fileName + ".mid");
+
+        ConvertSheet.exec();
 
         return fileName + ".mid succesfully made";
     }

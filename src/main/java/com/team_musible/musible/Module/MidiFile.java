@@ -1,4 +1,4 @@
-package com.team_musible.musible;
+package com.team_musible.musible.Module;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,11 +12,11 @@ public class MidiFile {
     // represent with this code is one tick short of a
     // two semibreves (i.e., 8 crotchets)
 
-    static final int SEMIQUAVER = 4;
-    static final int QUAVER = 8;
-    static final int CROTCHET = 16;
-    static final int MINIM = 32;
-    static final int SEMIBREVE = 64;
+    public static final int SEMIQUAVER = 4;
+    public static final int QUAVER = 8;
+    public static final int CROTCHET = 16;
+    public static final int MINIM = 32;
+    public static final int SEMIBREVE = 64;
 
     // Standard MIDI file header, for one-track file
     // 4D, 54... are just magic numbers to identify the
