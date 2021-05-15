@@ -34,18 +34,24 @@ public class ConvertSheet {
         Process process;
         String ML_ENV = System.getenv("ML_ENV");
         System.out.println("ML_ENV " + ML_ENV);
+        System.out.println("args " + args);
         if (isWindows) {
             process = Runtime.getRuntime().exec(String.format("cmd.exe /c %s", ML_ENV));
         } else {
-            process = Runtime.getRuntime().exec(String.format("sh -c %s %s", ML_ENV, args));
+            process = Runtime.getRuntime().exec(String.format("%s %s", ML_ENV, args));
         }
 
         StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), (item) -> {
-            System.out.println(item);
-            String[] input = item.split("/");
-            int duration = Integer.parseInt(input[0]);
-            int note = Integer.parseInt(input[1]);
-            ret.add(Pair.of(duration, note));
+            System.out.println("item " + item);
+            String[] input = item.split(" ");
+            for (String s : input) {
+                String[] metaData = s.split("/");
+                int duration = Integer.parseInt(metaData[0]);
+                int note = Integer.parseInt(metaData[1]);
+
+                System.out.println(metaData[0] + " " + metaData[1]);
+                ret.add(Pair.of(duration, note));
+            }
         });
         Executors.newSingleThreadExecutor().submit(streamGobbler);
         int exitCode = process.waitFor();
