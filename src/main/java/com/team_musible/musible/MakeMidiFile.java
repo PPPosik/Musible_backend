@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * is executed
  */
 
- @Controller
+@Controller
 public class MakeMidiFile {
     @RequestMapping("/makeMidiFile")
     @ResponseBody
