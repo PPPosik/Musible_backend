@@ -1,27 +1,13 @@
-package com.team_musible.musible.Controller;
+package com.team_musible.musible.Service;
 
+import com.team_musible.musible.Module.ConvertSheet;
 import com.team_musible.musible.Module.MidiFile;
+import org.springframework.data.util.Pair;
 
 import java.util.List;
 
-import com.team_musible.musible.Module.ConvertSheet;
-
-import org.springframework.data.util.Pair;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-/**
- * Test method — creates a file test1.mid when the class
- *
- * is executed
- */
-
-@Controller
-public class MidiFileController {
-    @RequestMapping("/makeMidiFile")
-    @ResponseBody
-    public String create() throws Exception {
+public class MidiService {
+    public String createMidi() throws Exception {
         MidiFile mf = new MidiFile();
         String fileName = "converted";
         // TODO update path
@@ -53,7 +39,7 @@ public class MidiFileController {
             mf.progChange(10);
             mf.writeToFile(System.getenv("MIDIPATH") + "/" + fileName + ".mid");
             System.out.println("MIDIPATH " + System.getenv("MIDIPATH"));
-            
+
             return fileName + ".mid succesfully made";
         }
         else {
