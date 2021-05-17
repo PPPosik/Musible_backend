@@ -1,20 +1,23 @@
 package com.team_musible.musible.Service;
 
 import com.team_musible.musible.Module.ConvertSheet;
+import com.team_musible.musible.Module.GetImageFiles;
 import com.team_musible.musible.Module.MidiFile;
 import org.springframework.data.util.Pair;
-import org.springframework.util.FileCopyUtils;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class MidiService {
+    GetImageFiles getImageFiles;
+
     public String createMidi() throws Exception {
         MidiFile mf = new MidiFile();
         String fileName = "converted";
         // TODO update path
-        String args = "/home/musible_admin/Musible/MUSIBLE_OpenCV/score/score2.jpg";
+
+        String args = getImageFiles.getFileNames();
         List<Pair<Integer, Integer>> midiMetaData = ConvertSheet.exec(args);
 
         int rest = 0;

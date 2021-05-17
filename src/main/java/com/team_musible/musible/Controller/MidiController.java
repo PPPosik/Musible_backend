@@ -14,7 +14,7 @@ public class MidiController {
     ImageUploadService imageUploadService = new ImageUploadService();
     MidiService midiService = new MidiService();
 
-    @GetMapping("/request")
+    @PostMapping("/request")
     @ResponseStatus(HttpStatus.CREATED)
     public void upload(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
         imageUploadService.uploadImage(files);
