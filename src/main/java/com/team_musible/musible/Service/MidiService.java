@@ -3,7 +3,10 @@ package com.team_musible.musible.Service;
 import com.team_musible.musible.Module.ConvertSheet;
 import com.team_musible.musible.Module.MidiFile;
 import org.springframework.data.util.Pair;
+import org.springframework.util.FileCopyUtils;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 
 public class MidiService {
@@ -44,6 +47,29 @@ public class MidiService {
         }
         else {
             return "image error";
+        }
+    }
+
+    public void responseMidi(HttpServletResponse response) throws IOException {
+        String fileName = "converted.MID";
+        File midiFile = new File(System.getenv("MIDIPATH") + "/" + fileName);
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
+
+        byte byteStrem[] = new byte[2048000];
+
+        if(midiFile.isFile() && midiFile.length() > 0){
+            FileInputStream fileInputStream = new FileInputStream(midiFile);
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(response.getOutputStream());
+
+            int read = 0;
+            while((read = bufferedInputStream.read(byteStrem)) != -1){
+                bufferedOutputStream.write(byteStrem, 0, read);
+            }
+
+            bufferedOutputStream.close();
+            bufferedInputStream.close();
         }
     }
 }

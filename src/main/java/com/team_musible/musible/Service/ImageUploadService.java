@@ -12,7 +12,7 @@ public class ImageUploadService {
         for(MultipartFile file : files) {
             String fileType = file.getContentType();
             if (fileType.contains("image")){
-                File dest = new File(System.getenv("IMAGEPATH") + "image" + number++);
+                File dest = new File(System.getenv("IMAGEPATH") + "/" + "image" + number++);
                 file.transferTo(dest);
             }
             else throw new IOException("이미지 파일이 아닙니다.");
