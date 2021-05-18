@@ -54,7 +54,7 @@ public class MidiService {
     }
 
     public void responseMidi(HttpServletResponse response) throws IOException {
-        String fileName = "converted.MID";
+        String fileName = "converted.mid";
         File midiFile = new File(System.getenv("MIDIPATH") + "/" + fileName);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
