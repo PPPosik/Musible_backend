@@ -1,17 +1,23 @@
 package com.team_musible.musible.Service;
 
 import com.team_musible.musible.Module.ConvertSheet;
+import com.team_musible.musible.Module.GetImageFiles;
 import com.team_musible.musible.Module.MidiFile;
 import org.springframework.data.util.Pair;
-
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class MidiService {
+    GetImageFiles getImageFiles;
+
     public String createMidi() throws Exception {
         MidiFile mf = new MidiFile();
         String fileName = "converted";
         // TODO update path
-        String args = "/home/musible_admin/Musible/MUSIBLE_OpenCV/score/score2.jpg";
+
+        String args = getImageFiles.getFileNames();
         List<Pair<Integer, Integer>> midiMetaData = ConvertSheet.exec(args);
 
         int rest = 0;
@@ -44,6 +50,29 @@ public class MidiService {
         }
         else {
             return "image error";
+        }
+    }
+
+    public void responseMidi(HttpServletResponse response) throws IOException {
+        String fileName = "converted.MID";
+        File midiFile = new File(System.getenv("MIDIPATH") + "/" + fileName);
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
+
+        byte byteStrem[] = new byte[2048000];
+
+        if(midiFile.isFile() && midiFile.length() > 0){
+            FileInputStream fileInputStream = new FileInputStream(midiFile);
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(response.getOutputStream());
+
+            int read = 0;
+            while((read = bufferedInputStream.read(byteStrem)) != -1){
+                bufferedOutputStream.write(byteStrem, 0, read);
+            }
+
+            bufferedOutputStream.close();
+            bufferedInputStream.close();
         }
     }
 }
