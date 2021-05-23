@@ -19,7 +19,15 @@ public class MidiController {
     @ResponseStatus(HttpStatus.CREATED)
     public void upload(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
         imageUploadService.uploadImage(files);
-        midiService.createMidi();
-        midiService.responseMidi(response);
+        int statusCode = midiService.createMidi();
+        if(statusCode == 200) {
+            System.out.print("success create midi file");
+            midiService.responseMidi(response);
+        }
+        else {
+            String message = "error create midi file";
+            System.out.print(message);
+            response.sendError(statusCode, message);
+        }
     }
 }

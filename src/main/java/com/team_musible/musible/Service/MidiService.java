@@ -6,16 +6,14 @@ import com.team_musible.musible.Module.MidiFile;
 import org.springframework.data.util.Pair;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.Arrays;
 import java.util.List;
 
 public class MidiService {
     GetImageFiles getImageFiles;
 
-    public String createMidi() throws Exception {
+    public int createMidi() throws Exception {
         MidiFile mf = new MidiFile();
         String fileName = "converted";
-        // TODO update path
 
         String args = getImageFiles.getFileNames();
         List<Pair<Integer, Integer>> midiMetaData = ConvertSheet.exec(args);
@@ -46,10 +44,11 @@ public class MidiService {
             mf.writeToFile(System.getenv("MIDIPATH") + "/" + fileName + ".mid");
             System.out.println("MIDIPATH " + System.getenv("MIDIPATH"));
 
-            return fileName + ".mid succesfully made";
+            return 200;
         }
         else {
-            return "image error";
+            System.out.println("error");
+            return 400;
         }
     }
 
