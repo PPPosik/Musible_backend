@@ -18,12 +18,6 @@ public class TestController {
     MidiService midiService = new MidiService();
     GetImageFiles getImageFiles = new GetImageFiles();
 
-    @GetMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public String test(){
-        return "Musible Test";
-    }
-
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.OK)
     public String imageUpload(@RequestPart List<MultipartFile> files) throws IOException {
@@ -35,11 +29,5 @@ public class TestController {
     @ResponseStatus(HttpStatus.OK)
     public void downloadMidi(HttpServletResponse response) throws IOException {
         midiService.responseMidi(response);
-    }
-
-    @GetMapping("/health")
-    @ResponseStatus(HttpStatus.OK)
-    public String healthCheckc() throws IOException {
-        return "Healthy";
     }
 }
