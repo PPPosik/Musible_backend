@@ -12,11 +12,16 @@ public class ImageUploadService {
 
         for(MultipartFile file : files) {
             String fileType = file.getContentType();
+            System.out.println("fileType is " + fileType);
+            File dest = new File(System.getenv("IMAGEPATH") + "/" + "image" + number++);
+            file.transferTo(dest);
+            /*
             if (fileType.contains("image")){
                 File dest = new File(System.getenv("IMAGEPATH") + "/" + "image" + number++);
                 file.transferTo(dest);
             }
             else throw new IOException("Invalid image files!");
+            */
         }
     }
 }
