@@ -30,4 +30,10 @@ public class TestController {
     public void downloadMidi(HttpServletResponse response) throws IOException {
         midiService.responseMidi(response);
     }
+
+    @GetMapping("/health")
+    @ResponseStatus(HttpStatus.OK)
+    public String healthCheckc() throws IOException {
+        return "Healthy";
+    }
 }
