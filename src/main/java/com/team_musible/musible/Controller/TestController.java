@@ -1,5 +1,6 @@
 package com.team_musible.musible.Controller;
 
+import com.team_musible.musible.Module.DeleteImageFiles;
 import com.team_musible.musible.Module.GetImageFiles;
 import com.team_musible.musible.Service.ImageUploadService;
 import com.team_musible.musible.Service.MidiService;
@@ -17,6 +18,7 @@ public class TestController {
     ImageUploadService imageUploadService = new ImageUploadService();
     MidiService midiService = new MidiService();
     GetImageFiles getImageFiles = new GetImageFiles();
+    DeleteImageFiles deleteImageFiles = new DeleteImageFiles();
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.OK)
@@ -29,5 +31,11 @@ public class TestController {
     @ResponseStatus(HttpStatus.OK)
     public void downloadMidi(HttpServletResponse response) throws IOException {
         midiService.responseMidi(response);
+    }
+
+    @DeleteMapping("/delete")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteImage() throws IOException{
+        deleteImageFiles.deleteFiles();
     }
 }
