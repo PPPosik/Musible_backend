@@ -22,8 +22,8 @@ public class TestController {
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.OK)
-    public String imageUpload(@RequestPart List<MultipartFile> files) throws IOException {
-        imageUploadService.uploadImage(files);
+    public String imageUpload(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
+        imageUploadService.uploadImage(files, response);
         return getImageFiles.getFileNames();
     }
 
@@ -36,6 +36,14 @@ public class TestController {
     @DeleteMapping("/delete")
     @ResponseStatus(HttpStatus.OK)
     public void deleteImage() throws IOException{
+        deleteImageFiles.deleteFiles();
+    }
+
+    @PostMapping("/request")
+    @ResponseStatus(HttpStatus.OK)
+    public void requestTest(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
+        imageUploadService.uploadImage(files, response);
+        midiService.responseMidi(response);
         deleteImageFiles.deleteFiles();
     }
 }
