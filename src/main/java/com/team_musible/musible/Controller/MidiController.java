@@ -17,8 +17,8 @@ public class MidiController {
 
     @PostMapping("/request")
     @ResponseStatus(HttpStatus.CREATED)
-    public void upload(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
-        imageUploadService.uploadImage(files);
+    public void requestMidi(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
+        imageUploadService.uploadImage(files, response);
 
         int statusCode = midiService.createMidi();
 
