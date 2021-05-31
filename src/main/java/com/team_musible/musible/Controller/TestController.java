@@ -1,6 +1,5 @@
 package com.team_musible.musible.Controller;
 
-import com.team_musible.musible.Module.DeleteImageFiles;
 import com.team_musible.musible.Service.ImageUploadService;
 import com.team_musible.musible.Service.MidiService;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import java.util.List;
 public class TestController {
     ImageUploadService imageUploadService = new ImageUploadService();
     MidiService midiService = new MidiService();
-    DeleteImageFiles deleteImageFiles = new DeleteImageFiles();
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.OK)
@@ -50,7 +48,11 @@ public class TestController {
     @DeleteMapping("/delete")
     @ResponseStatus(HttpStatus.OK)
     public void deleteImage() throws IOException{
-        deleteImageFiles.deleteFiles();
+        File imageFolder = new File(System.getenv("IMAGEPATH") + "/");
+        File[] imageFiles = imageFolder.listFiles();
+
+        for(File image : imageFiles)
+            image.delete();
     }
 
     @PostMapping("/request")
@@ -58,6 +60,11 @@ public class TestController {
     public void requestTest(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
         imageUploadService.uploadImage(files, response);
         midiService.responseMidi(response);
-        deleteImageFiles.deleteFiles();
+
+        File imageFolder = new File(System.getenv("IMAGEPATH") + "/");
+        File[] imageFiles = imageFolder.listFiles();
+
+        for(File image : imageFiles)
+            image.delete();
     }
 }

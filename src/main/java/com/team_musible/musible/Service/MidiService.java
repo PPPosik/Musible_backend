@@ -1,7 +1,6 @@
 package com.team_musible.musible.Service;
 
 import com.team_musible.musible.Module.ConvertSheet;
-import com.team_musible.musible.Module.DeleteImageFiles;
 import com.team_musible.musible.Module.MidiFile;
 import org.springframework.data.util.Pair;
 
@@ -11,8 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MidiService {
-    DeleteImageFiles deleteImageFiles;
-
     public int createMidi() throws Exception {
         MidiFile mf = new MidiFile();
         String midiName = "converted";
@@ -57,12 +54,24 @@ public class MidiService {
             mf.progChange(10);
             mf.writeToFile(System.getenv("MIDIPATH") + "/" + midiName + ".mid");
             System.out.println("MIDIPATH " + System.getenv("MIDIPATH"));
-            deleteImageFiles.deleteFiles();
+
+            File imageFolder = new File(System.getenv("IMAGEPATH") + "/");
+            File[] imageFiles = imageFolder.listFiles();
+
+            for(File image : imageFiles)
+                image.delete();
+
             return 200;
         }
         else {
             System.out.println("error");
-            deleteImageFiles.deleteFiles();
+
+            File imageFolder = new File(System.getenv("IMAGEPATH") + "/");
+            File[] imageFiles = imageFolder.listFiles();
+
+            for(File image : imageFiles)
+                image.delete();
+
             return 400;
         }
     }
