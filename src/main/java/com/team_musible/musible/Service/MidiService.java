@@ -2,22 +2,34 @@ package com.team_musible.musible.Service;
 
 import com.team_musible.musible.Module.ConvertSheet;
 import com.team_musible.musible.Module.DeleteImageFiles;
-import com.team_musible.musible.Module.GetImageFiles;
 import com.team_musible.musible.Module.MidiFile;
 import org.springframework.data.util.Pair;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class MidiService {
-    GetImageFiles getImageFiles;
     DeleteImageFiles deleteImageFiles;
 
     public int createMidi() throws Exception {
         MidiFile mf = new MidiFile();
-        String fileName = "converted";
+        String midiName = "converted";
 
-        String args = getImageFiles.getFileNames();
+        File dir = new File(System.getenv("IMAGEPATH"));
+        File[] imagefiles = dir.listFiles();
+        String[] tempFileNames = new String[imagefiles.length];
+        String args = "";
+
+        for (int i = 0; i < imagefiles.length; i++)
+            tempFileNames[i] = imagefiles[i].getAbsolutePath();
+
+        Arrays.sort(tempFileNames);
+
+        for (int i = 0; i < imagefiles.length; i++)
+            args += tempFileNames[i] + " ";
+
         List<Pair<Integer, Integer>> midiMetaData = ConvertSheet.exec(args);
 
         int rest = 0;
@@ -43,7 +55,7 @@ public class MidiService {
 
         if (midiMetaData.size() > 0) {
             mf.progChange(10);
-            mf.writeToFile(System.getenv("MIDIPATH") + "/" + fileName + ".mid");
+            mf.writeToFile(System.getenv("MIDIPATH") + "/" + midiName + ".mid");
             System.out.println("MIDIPATH " + System.getenv("MIDIPATH"));
             deleteImageFiles.deleteFiles();
             return 200;
