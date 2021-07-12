@@ -1,12 +1,10 @@
-package com.team_musible.musible.Controller;
+package com.team_musible.musible.MusicXML;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.team_musible.musible.Service.ImageUploadService;
-import com.team_musible.musible.Service.MusicXMLService;
+import com.team_musible.musible.Module.ImageUpload;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class MusicXMLController {
-    ImageUploadService imageUploadService = new ImageUploadService();
+    ImageUpload imageUpload = new ImageUpload();
     MusicXMLService musicXMLService = new MusicXMLService();
 
     @GetMapping("/musicXML")
     @ResponseStatus(HttpStatus.OK)
     public void requestXML(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
-        // imageUploadService.uploadImage(files, response);
+        // imageUpload.uploadImage(files, response);
         String xml = musicXMLService.createXML();
         Boolean success = musicXMLService.makeFile("musicXML.xml", xml);
 

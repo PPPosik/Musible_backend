@@ -1,24 +1,25 @@
-package com.team_musible.musible.Controller;
+package com.team_musible.musible.Midi;
 
-import com.team_musible.musible.Service.ImageUploadService;
-import com.team_musible.musible.Service.MidiService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+
+import com.team_musible.musible.Module.ImageUpload;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/musible")
 public class MidiController {
-    ImageUploadService imageUploadService = new ImageUploadService();
+    ImageUpload imageUpload = new ImageUpload();
     MidiService midiService = new MidiService();
 
     @PostMapping("/request")
     @ResponseStatus(HttpStatus.CREATED)
     public void requestMidi(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
-        imageUploadService.uploadImage(files, response);
+        imageUpload.uploadImage(files, response);
 
         int statusCode = midiService.createMidi();
 

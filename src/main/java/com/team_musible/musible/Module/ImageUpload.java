@@ -1,4 +1,4 @@
-package com.team_musible.musible.Service;
+package com.team_musible.musible.Module;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
 
-public class ImageUploadService {
+public class ImageUpload {
     public void uploadImage(List<MultipartFile> files, HttpServletResponse response) throws Exception {
         int number = 1;
 

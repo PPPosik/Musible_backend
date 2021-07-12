@@ -1,4 +1,4 @@
-package com.team_musible.musible.Controller;
+package com.team_musible.musible.Health;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;

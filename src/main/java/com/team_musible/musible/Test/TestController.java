@@ -1,7 +1,8 @@
-package com.team_musible.musible.Controller;
+package com.team_musible.musible.Test;
 
-import com.team_musible.musible.Service.ImageUploadService;
-import com.team_musible.musible.Service.MidiService;
+import com.team_musible.musible.Midi.MidiService;
+import com.team_musible.musible.Module.ImageUpload;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,13 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-    ImageUploadService imageUploadService = new ImageUploadService();
+    ImageUpload imageUpload = new ImageUpload();
     MidiService midiService = new MidiService();
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.OK)
     public String imageUpload(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
-        imageUploadService.uploadImage(files, response);
+        imageUpload.uploadImage(files, response);
 
         File dir = new File(System.getenv("IMAGEPATH"));
         File[] imagefiles = dir.listFiles();
@@ -58,7 +59,7 @@ public class TestController {
     @PostMapping("/request")
     @ResponseStatus(HttpStatus.OK)
     public void requestTest(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
-        imageUploadService.uploadImage(files, response);
+        imageUpload.uploadImage(files, response);
         midiService.responseMidi(response);
 
         File imageFolder = new File(System.getenv("IMAGEPATH") + "/");
