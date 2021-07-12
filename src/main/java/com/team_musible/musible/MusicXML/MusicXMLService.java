@@ -10,16 +10,16 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import com.team_musible.musible.Common.MusicXML;
+import com.team_musible.musible.MusicXML.DTO.MusicXMLDTO;
+import com.team_musible.musible.MusicXML.DTO.XMLBodyDTO;
 
 public class MusicXMLService {
-    public String createXML() {
+    public XMLBodyDTO createXMLBody(String data) {
         MusicXML musicXML = new MusicXML();
-        String xml = null;
-
-        String testData = "16/55 16/60 8/59 8/60 16/62 8/60 8/62 16/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/55 8/55 16/60 8/59 8/60 16/62 8/60 8/62 16/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/60 8/64 16/67 8/64 8/62 16/60 8/59 8/60 8/62 8/60 8/59 8/57 16/55 8/60 8/64 16/67 8/64 8/62 16/60 8/59 8/60 48/62 8/55 8/55 16/60 16/-1 16/62 16/-1 8/64 8/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/55 8/55 16/60 8/55 8/55 8/57 8/57 16/55 16/52 16/55 16/52 8/55 8/55 16/60 8/55 8/55 8/57 8/57 16/55 16/52 16/55 16/52 8/55 8/55 16/60 16/-1 16/62 16/-1 8/64 8/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 16/55";
+        XMLBodyDTO xmlBody = new XMLBodyDTO();
 
         try {
-            musicXML.init();
+            musicXML.xmlStart();
             musicXML.makePartlist("P1", "Part 1");
             musicXML.makePartStart("Part 1", 1);
             musicXML.makeAttribute(5, 0, 5, 4, "G", 2);
@@ -29,28 +29,38 @@ public class MusicXMLService {
             musicXML.makeNote("F", 4, 1, "quarter");
             musicXML.makeNote("G", 4, 1, "whole");
             musicXML.makePartEnd();
+            musicXML.xmlEnd();
 
-            xml = musicXML.getXML();
-            System.out.println(xml);
+            xmlBody.xmlBody = musicXML.getXML();
+            xmlBody.success = true;
+            System.out.println(xmlBody.xmlBody);
         } catch (Exception error) {
             error.printStackTrace();
+            xmlBody.error = error.getMessage();
+            xmlBody.success = false;
         }
 
-        return xml;
+        return xmlBody;
     }
 
-    public Boolean makeXML(String fileName, String body) {
+    public MusicXMLDTO makeXML(String fileName, String body) {
+        MusicXMLDTO res = new MusicXMLDTO();
+
         try {
             FileWriter file = new FileWriter(fileName);
             file.write(body);
             file.close();
             System.out.println("Successfully write");
+
+            res.statusCode = 200;
+            res.message = "Successfully write";
         } catch (Exception error) {
             error.printStackTrace();
-            return false;
+            res.statusCode = 500;
+            res.message = error.getMessage();
         }
 
-        return true;
+        return res;
     }
 
     public void attachFileToResponse(HttpServletResponse response) throws IOException {
@@ -61,13 +71,13 @@ public class MusicXMLService {
 
         byte byteStrem[] = new byte[2048000];
 
-        if(midiFile.isFile() && midiFile.length() > 0){
+        if (midiFile.isFile() && midiFile.length() > 0) {
             FileInputStream fileInputStream = new FileInputStream(midiFile);
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(response.getOutputStream());
 
             int read = 0;
-            while((read = bufferedInputStream.read(byteStrem)) != -1){
+            while ((read = bufferedInputStream.read(byteStrem)) != -1) {
                 bufferedOutputStream.write(byteStrem, 0, read);
             }
 

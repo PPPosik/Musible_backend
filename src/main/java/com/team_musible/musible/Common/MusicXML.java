@@ -2,7 +2,7 @@ package com.team_musible.musible.Common;
 public class MusicXML {
     private String xml;
 
-    public void init() {
+    public void xmlStart() {
         final String declare = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
 
         final String dtd =
@@ -34,6 +34,10 @@ public class MusicXML {
     public void makePartEnd() {
         xml += "</measure>";
         xml += "</part>";
+    }
+
+    public void xmlEnd() {
+        xml += "</score-partwise>";
     }
 
     public void makeAttribute(int divisions, int key, int beats, int beat_type, String sign, int line) {
