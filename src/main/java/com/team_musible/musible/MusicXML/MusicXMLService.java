@@ -21,13 +21,12 @@ public class MusicXMLService {
         try {
             musicXML.xmlStart();
             musicXML.makePartlist("P1", "Part 1");
-            musicXML.makePartStart("Part 1", 1);
-            musicXML.makeAttribute(5, 0, 5, 4, "G", 2);
-            musicXML.makeNote("C", 4, 1, "quarter");
-            musicXML.makeNote("D", 4, 1, "quarter");
-            musicXML.makeNote("E", 4, 1, "quarter");
-            musicXML.makeNote("F", 4, 1, "quarter");
-            musicXML.makeNote("G", 4, 1, "whole");
+            musicXML.makePartStart("P1", 1);
+            musicXML.makeAttribute(1, 0, 4, 4, "G", 2);
+            musicXML.makeNote("C", 4, 4, "whole");
+            musicXML.makeNote("C", 4, 4, "whole");
+            musicXML.makeNote("C", 4, 4, "whole");
+            musicXML.makeNote("C", 4, 4, "whole");
             musicXML.makePartEnd();
             musicXML.xmlEnd();
 

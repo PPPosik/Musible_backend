@@ -6,8 +6,8 @@ public class MusicXML {
         final String declare = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
 
         final String dtd =
-        "<!DOCTYPE score-partwise PUBLIC" +
-        "\"-//Recordare//DTD MusicXML 3.1 Partwise//EN\"" +
+        "<!DOCTYPE score-partwise PUBLIC\n" +
+        "\"-//Recordare//DTD MusicXML 3.1 Partwise//EN\"\n" +
         "\"http://www.musicxml.org/dtds/partwise.dtd\">";
 
         final String type = "<score-partwise version=\"3.1\">";
