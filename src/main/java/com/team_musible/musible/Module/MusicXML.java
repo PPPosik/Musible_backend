@@ -1,6 +1,6 @@
 package com.team_musible.musible.Module;
 public class MusicXML {
-    String xml;
+    private String xml;
 
     public void init() {
         final String declare = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
@@ -54,5 +54,9 @@ public class MusicXML {
         xml += "<duration>" + Integer.toString(duration) + "</duration>";
         xml += "<type>" + type + "</type>";
         xml += "</note>";
+    }
+
+    public String getXML() {
+        return this.xml;
     }
 }
