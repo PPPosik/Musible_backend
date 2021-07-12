@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.team_musible.musible.Module.ImageUpload;
+import com.team_musible.musible.Common.ImageUpload;
 
 import java.util.List;
 

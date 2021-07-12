@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.team_musible.musible.Module.MusicXML;
+import com.team_musible.musible.Common.MusicXML;
 
 public class MusicXMLService {
     public String createXML() {
@@ -39,7 +39,7 @@ public class MusicXMLService {
         return xml;
     }
 
-    public Boolean makeFile(String fileName, String body) {
+    public Boolean makeXML(String fileName, String body) {
         try {
             FileWriter file = new FileWriter(fileName);
             file.write(body);

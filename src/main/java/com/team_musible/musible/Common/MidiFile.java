@@ -1,4 +1,4 @@
-package com.team_musible.musible.Module;
+package com.team_musible.musible.Common;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.team_musible.musible.Module.ImageUpload;
+import com.team_musible.musible.Common.ImageUpload;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class MusicXMLController {
     public void requestXML(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
         // imageUpload.uploadImage(files, response);
         String xml = musicXMLService.createXML();
-        Boolean success = musicXMLService.makeFile("musicXML.xml", xml);
+        Boolean success = musicXMLService.makeXML("musicXML.xml", xml);
 
         if(success) {
             try{
@@ -31,6 +31,7 @@ public class MusicXMLController {
             }
             catch(Exception error) {
                 error.printStackTrace();
+                response.sendError(500, error.getMessage());
             }
         }
         else {

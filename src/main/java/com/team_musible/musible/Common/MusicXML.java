@@ -1,4 +1,4 @@
-package com.team_musible.musible.Module;
+package com.team_musible.musible.Common;
 public class MusicXML {
     private String xml;
 

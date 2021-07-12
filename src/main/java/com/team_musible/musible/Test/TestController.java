@@ -1,7 +1,7 @@
 package com.team_musible.musible.Test;
 
+import com.team_musible.musible.Common.ImageUpload;
 import com.team_musible.musible.Midi.MidiService;
-import com.team_musible.musible.Module.ImageUpload;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
