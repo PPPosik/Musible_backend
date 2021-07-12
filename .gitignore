@@ -38,3 +38,6 @@ out/
 
 ### Midi File ###
 *.mid
+
+### XML File ###
+musicXML.xml
