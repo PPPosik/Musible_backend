@@ -9,24 +9,52 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.team_musible.musible.Common.MidiToXML;
 import com.team_musible.musible.Common.MusicXML;
 import com.team_musible.musible.MusicXML.DTO.MusicXMLDTO;
 import com.team_musible.musible.MusicXML.DTO.XMLBodyDTO;
 
 public class MusicXMLService {
     public XMLBodyDTO createXMLBody(String data) {
-        MusicXML musicXML = new MusicXML();
-        XMLBodyDTO xmlBody = new XMLBodyDTO();
+        final MusicXML musicXML = new MusicXML();
+        final XMLBodyDTO xmlBody = new XMLBodyDTO();
 
         try {
             musicXML.xmlStart();
             musicXML.makePartlist("P1", "Part 1");
             musicXML.makePartStart("P1", 1);
             musicXML.makeAttribute(1, 0, 4, 4, "G", 2);
-            musicXML.makeNote("C", 4, 4, "whole");
-            musicXML.makeNote("C", 4, 4, "whole");
-            musicXML.makeNote("C", 4, 4, "whole");
-            musicXML.makeNote("C", 4, 4, "whole");
+
+            final String[] notes = data.split(" ");
+            for (final String note : notes) {
+                final String[] s = note.split("/");
+                System.out.println(s[0] + " " + s[1]);
+
+                final String step = s[1].equals("-1") ? "-1" : MidiToXML.step.get(Integer.parseInt(s[1]) % 7);
+                if (step == null) {
+                    throw new NullPointerException(s[1] + " step is null");
+                }
+
+                final int octave = Integer.parseInt(s[1]) / 7 - 4;
+
+                final int duration = Integer.parseInt(s[0]) / 16;
+
+                // TODO fix type
+                // final String type = MidiToXML.type.get(duration);
+                // if(type == null) {
+                // throw new NullPointerException(s[0] + " type is null");
+                // }
+
+                /*
+                    TODO
+                    1. step, ocatve 이상함
+                    2. rest 처리
+                    3. type 처리
+                */
+                if(octave> 0)
+                musicXML.makeNote(step, octave, 1, "eighth");
+            }
+
             musicXML.makePartEnd();
             musicXML.xmlEnd();
 
@@ -43,10 +71,10 @@ public class MusicXMLService {
     }
 
     public MusicXMLDTO makeXML(String fileName, String body) {
-        MusicXMLDTO res = new MusicXMLDTO();
+        final MusicXMLDTO res = new MusicXMLDTO();
 
         try {
-            FileWriter file = new FileWriter(fileName);
+            final FileWriter file = new FileWriter(fileName);
             file.write(body);
             file.close();
             System.out.println("Successfully write");
@@ -64,16 +92,16 @@ public class MusicXMLService {
 
     public void attachFileToResponse(HttpServletResponse response) throws IOException {
         String fileName = "converted.mid";
-        File midiFile = new File(System.getenv("MIDIPATH") + "/" + fileName);
+        final File midiFile = new File(System.getenv("MIDIPATH") + "/" + fileName);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
 
         byte byteStrem[] = new byte[2048000];
 
         if (midiFile.isFile() && midiFile.length() > 0) {
-            FileInputStream fileInputStream = new FileInputStream(midiFile);
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(response.getOutputStream());
+            final FileInputStream fileInputStream = new FileInputStream(midiFile);
+            final BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            final BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(response.getOutputStream());
 
             int read = 0;
             while ((read = bufferedInputStream.read(byteStrem)) != -1) {

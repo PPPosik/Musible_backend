@@ -17,21 +17,27 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class MusicXMLController {
-    ImageUpload imageUpload = new ImageUpload();
-    MusicXMLService musicXMLService = new MusicXMLService();
+    final ImageUpload imageUpload = new ImageUpload();
+    final MusicXMLService musicXMLService = new MusicXMLService();
 
     @GetMapping("/musicXML")
     @ResponseStatus(HttpStatus.OK)
     public void requestXML(HttpServletResponse response) throws Exception {
         // imageUpload.uploadImage(files, response);
 
-        String testData = "16/55 16/60 8/59 8/60 16/62 8/60 8/62 16/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/55 8/55 16/60 8/59 8/60 16/62 8/60 8/62 16/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/60 8/64 16/67 8/64 8/62 16/60 8/59 8/60 8/62 8/60 8/59 8/57 16/55 8/60 8/64 16/67 8/64 8/62 16/60 8/59 8/60 48/62 8/55 8/55 16/60 16/-1 16/62 16/-1 8/64 8/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/55 8/55 16/60 8/55 8/55 8/57 8/57 16/55 16/52 16/55 16/52 8/55 8/55 16/60 8/55 8/55 8/57 8/57 16/55 16/52 16/55 16/52 8/55 8/55 16/60 16/-1 16/62 16/-1 8/64 8/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 16/55";
-        XMLBodyDTO xmlBody = musicXMLService.createXMLBody(testData);
+        final String testData = "16/55 16/60 8/59 8/60 16/62 8/60 8/62 16/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/55 8/55 16/60 8/59 8/60 16/62 8/60 8/62 16/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/60 8/64 16/67 8/64 8/62 16/60 8/59 8/60 8/62 8/60 8/59 8/57 16/55 8/60 8/64 16/67 8/64 8/62 16/60 8/59 8/60 48/62 8/55 8/55 16/60 16/-1 16/62 16/-1 8/64 8/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 8/55 8/55 16/60 8/55 8/55 8/57 8/57 16/55 16/52 16/55 16/52 8/55 8/55 16/60 8/55 8/55 8/57 8/57 16/55 16/52 16/55 16/52 8/55 8/55 16/60 16/-1 16/62 16/-1 8/64 8/64 8/65 8/64 16/57 8/62 8/62 16/60 8/60 8/60 16/59 8/57 8/59 48/60 16/55";
+        final XMLBodyDTO xmlBody = musicXMLService.createXMLBody(testData);
 
         if (xmlBody.success) {
-            MusicXMLDTO xmlRes = musicXMLService.makeXML("musicXML.xml", xmlBody.xmlBody);
+            MusicXMLDTO xmlRes = null;
+            try {
+                xmlRes = musicXMLService.makeXML("musicXML.xml", xmlBody.xmlBody);
+            } catch (Exception error) {
+                error.printStackTrace();
+                response.sendError(500, error.getMessage());
+            }
 
-            if (xmlRes.statusCode == 200) {
+            if (xmlRes != null && xmlRes.statusCode == 200) {
                 try {
                     // musicXMLService.attachFileToResponse(response);
                 } catch (Exception error) {

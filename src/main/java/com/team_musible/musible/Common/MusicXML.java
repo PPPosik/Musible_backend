@@ -52,7 +52,13 @@ public class MusicXML {
     public void makeNote(String step, int octave, int duration, String type) {
         xml += "<note>";
         xml += "<pitch>";
-        xml += "<step>" + step + "</step>";
+        if(step.equals("-1")) {
+            xml += "</rest>";
+            octave = 4;
+        }
+        else {
+            xml += "<step>" + step + "</step>";            
+        }
         xml += "<octave>" + Integer.toString(octave) + "</octave>";
         xml += "</pitch>";
         xml += "<duration>" + Integer.toString(duration) + "</duration>";
