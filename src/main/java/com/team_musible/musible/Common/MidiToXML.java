@@ -18,12 +18,12 @@ public class MidiToXML {
         type.put(2, "half");
         type.put(4, "whole");
 
-        step.put(0, "A");
-        step.put(1, "B");
-        step.put(2, "C");
-        step.put(3, "D");
+        step.put(0, "C");
+        step.put(2, "D");
         step.put(4, "E");
         step.put(5, "F");
-        step.put(6, "G");
+        step.put(7, "G");
+        step.put(9, "A");
+        step.put(11, "B");
     }
 }

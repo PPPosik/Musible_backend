@@ -30,12 +30,12 @@ public class MusicXMLService {
                 final String[] s = note.split("/");
                 System.out.println(s[0] + " " + s[1]);
 
-                final String step = s[1].equals("-1") ? "-1" : MidiToXML.step.get(Integer.parseInt(s[1]) % 7);
+                final String step = s[1].equals("-1") ? "-1" : MidiToXML.step.get(Integer.parseInt(s[1]) % 12);
                 if (step == null) {
                     throw new NullPointerException(s[1] + " step is null");
                 }
 
-                final int octave = Integer.parseInt(s[1]) / 7 - 4;
+                final int octave = Integer.parseInt(s[1]) / 12;
 
                 final int duration = Integer.parseInt(s[0]) / 16;
 
@@ -47,7 +47,6 @@ public class MusicXMLService {
 
                 /*
                     TODO
-                    1. step, ocatve 이상함
                     2. rest 처리
                     3. type 처리
                 */
