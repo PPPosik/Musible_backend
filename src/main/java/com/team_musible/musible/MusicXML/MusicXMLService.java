@@ -16,7 +16,7 @@ public class MusicXMLService {
             musicXML.xmlStart();
             musicXML.makePartlist("P1", "Part 1");
             musicXML.makePartStart("P1", 1);
-            musicXML.makeAttribute(1, 0, 4, 4, "G", 2, 90);
+            musicXML.makeAttribute(1, 0, 4, 4, "G", 2, 80);
 
             final String[] notes = data.split(" ");
             for (final String note : notes) {
