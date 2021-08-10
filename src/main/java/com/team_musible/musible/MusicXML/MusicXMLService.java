@@ -45,15 +45,12 @@ public class MusicXMLService {
                 }
 
                 /*
-                 * TODO 1. BPM 2. rest 3. flat?
+                 * TODO BPM
                  */
-                if (octave > 0) {
-                    if (type.equals("dot")) {
-                        musicXML.makeNote(step, octave, duration, MidiToXML.type.get(Integer.parseInt(s[0]) / 3 * 2),
-                                true);
-                    } else {
-                        musicXML.makeNote(step, octave, duration, type, false);
-                    }
+                if (type.equals("dot")) {
+                    musicXML.makeNote(step, octave, duration, MidiToXML.type.get(Integer.parseInt(s[0]) / 3 * 2), true);
+                } else {
+                    musicXML.makeNote(step, octave, duration, type, false);
                 }
             }
 
