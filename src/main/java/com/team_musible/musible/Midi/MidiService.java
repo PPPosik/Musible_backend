@@ -27,7 +27,7 @@ public class MidiService {
         for (int i = 0; i < imagefiles.length; i++)
             args += tempFileNames[i] + " ";
 
-        List<Pair<Integer, Integer>> midiMetaData = ConvertSheet.exec(args);
+        List<Pair<Integer, Integer>> midiMetaData = ConvertSheet.execForMidi(args);
 
         int rest = 0;
         boolean lastWasRest = false;
