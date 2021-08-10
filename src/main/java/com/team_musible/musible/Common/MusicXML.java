@@ -1,14 +1,13 @@
 package com.team_musible.musible.Common;
+
 public class MusicXML {
     private String xml;
 
-    public void init() {
+    public void xmlStart() {
         final String declare = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
 
-        final String dtd =
-        "<!DOCTYPE score-partwise PUBLIC" +
-        "\"-//Recordare//DTD MusicXML 3.1 Partwise//EN\"" +
-        "\"http://www.musicxml.org/dtds/partwise.dtd\">";
+        final String dtd = "<!DOCTYPE score-partwise PUBLIC\n" + "\"-//Recordare//DTD MusicXML 3.1 Partwise//EN\"\n"
+                + "\"http://www.musicxml.org/dtds/partwise.dtd\">";
 
         final String type = "<score-partwise version=\"3.1\">";
 
@@ -16,12 +15,8 @@ public class MusicXML {
     }
 
     public void makePartlist(String partID, String partName) {
-        final String part =
-        "<part-list>" + 
-            "<score-part id=\"" + partID + "\">" + 
-                "<part-name>" + partName + "</part-name>" + 
-            "</score-part>" + 
-        "</part-list>";
+        final String part = "<part-list>" + "<score-part id=\"" + partID + "\">" + "<part-name>" + partName
+                + "</part-name>" + "</score-part>" + "</part-list>";
 
         xml += part;
     }
@@ -36,23 +31,36 @@ public class MusicXML {
         xml += "</part>";
     }
 
-    public void makeAttribute(int divisions, int key, int beats, int beat_type, String sign, int line) {
-        xml += "<attributes>";
-        xml += "<divisions>" + Integer.toString(divisions) + "</divisions>";
-        xml += "<key><fifths>"+ Integer.toString(key) + "</fifths></key>";
-        xml += "<time><beats>" + Integer.toString(beats) + "</beats><beat-type>" + Integer.toString(beat_type) + "</beat-type></time>";
-        xml += "<clef><sign>" + sign + "</sign><line>" + Integer.toString(line) + "</line></clef>";
-        xml += "</attributes>";
+    public void xmlEnd() {
+        xml += "</score-partwise>";
     }
 
-    public void makeNote(String step, int octave, int duration, String type) {
+    public void makeAttribute(int divisions, int key, int beats, int beat_type, String sign, int line, int tempo) {
+        xml += "<attributes>";
+        xml += "<divisions>" + Integer.toString(divisions) + "</divisions>";
+        xml += "<key><fifths>" + Integer.toString(key) + "</fifths></key>";
+        xml += "<time><beats>" + Integer.toString(beats) + "</beats><beat-type>" + Integer.toString(beat_type)
+                + "</beat-type></time>";
+        xml += "<clef><sign>" + sign + "</sign><line>" + Integer.toString(line) + "</line></clef>";
+        xml += "</attributes>";
+        xml += "<sound tempo=\"" + Integer.toString(tempo) + "\"/>";
+    }
+
+    public void makeNote(String step, int octave, int duration, String type, boolean dot) {
         xml += "<note>";
-        xml += "<pitch>";
-        xml += "<step>" + step + "</step>";
-        xml += "<octave>" + Integer.toString(octave) + "</octave>";
-        xml += "</pitch>";
+        if (step.equals("-1")) {
+            xml += "<rest/>";
+        } else {
+            xml += "<pitch>";
+            xml += "<step>" + step + "</step>";
+            xml += "<octave>" + Integer.toString(octave) + "</octave>";
+            xml += "</pitch>";
+        }
         xml += "<duration>" + Integer.toString(duration) + "</duration>";
         xml += "<type>" + type + "</type>";
+        if (dot) {
+            xml += "<dot/>";
+        }
         xml += "</note>";
     }
 

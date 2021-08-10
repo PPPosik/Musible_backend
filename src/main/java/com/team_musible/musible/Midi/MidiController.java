@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 
 import com.team_musible.musible.Common.ImageUpload;
+import com.team_musible.musible.Common.MusicFile;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class MidiController {
 
         if(statusCode == 200) {
             System.out.println("success create midi file");
-            midiService.responseMidi(response);
+            MusicFile.attachFileToResponse(response, "converted.mid");
         }
 
         else {

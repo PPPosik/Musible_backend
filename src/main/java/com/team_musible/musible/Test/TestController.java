@@ -1,6 +1,7 @@
 package com.team_musible.musible.Test;
 
 import com.team_musible.musible.Common.ImageUpload;
+import com.team_musible.musible.Common.MusicFile;
 import com.team_musible.musible.Midi.MidiService;
 
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class TestController {
     @GetMapping("/download")
     @ResponseStatus(HttpStatus.OK)
     public void downloadMidi(HttpServletResponse response) throws IOException {
-        midiService.responseMidi(response);
+        MusicFile.attachFileToResponse(response, "converted.mid");
     }
 
     @DeleteMapping("/delete")
@@ -60,7 +61,7 @@ public class TestController {
     @ResponseStatus(HttpStatus.OK)
     public void requestTest(@RequestPart List<MultipartFile> files, HttpServletResponse response) throws Exception {
         imageUpload.uploadImage(files, response);
-        midiService.responseMidi(response);
+        MusicFile.attachFileToResponse(response, "converted.mid");
 
         File imageFolder = new File(System.getenv("IMAGEPATH") + "/");
         File[] imageFiles = imageFolder.listFiles();
