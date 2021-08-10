@@ -37,21 +37,24 @@ public class MusicXMLService {
 
                 final int octave = Integer.parseInt(s[1]) / 12;
 
-                final int duration = Integer.parseInt(s[0]) / 16;
+                final int duration = 1;
 
-                // TODO fix type
-                // final String type = MidiToXML.type.get(duration);
-                // if(type == null) {
-                // throw new NullPointerException(s[0] + " type is null");
-                // }
+                final String type = MidiToXML.type.get(Integer.parseInt(s[0]));
+                if (type == null) {
+                    throw new NullPointerException(s[0] + " type is null");
+                }
 
                 /*
-                    TODO
-                    2. rest 처리
-                    3. type 처리
-                */
-                if(octave> 0)
-                musicXML.makeNote(step, octave, 1, "eighth");
+                 * TODO 1. BPM 2. rest 3. flat?
+                 */
+                if (octave > 0) {
+                    if (type.equals("dot")) {
+                        musicXML.makeNote(step, octave, duration, MidiToXML.type.get(Integer.parseInt(s[0]) / 3 * 2),
+                                true);
+                    } else {
+                        musicXML.makeNote(step, octave, duration, type, false);
+                    }
+                }
             }
 
             musicXML.makePartEnd();

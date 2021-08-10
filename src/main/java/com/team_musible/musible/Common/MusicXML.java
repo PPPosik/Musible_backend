@@ -49,7 +49,7 @@ public class MusicXML {
         xml += "</attributes>";
     }
 
-    public void makeNote(String step, int octave, int duration, String type) {
+    public void makeNote(String step, int octave, int duration, String type, boolean dot) {
         xml += "<note>";
         xml += "<pitch>";
         if(step.equals("-1")) {
@@ -63,6 +63,9 @@ public class MusicXML {
         xml += "</pitch>";
         xml += "<duration>" + Integer.toString(duration) + "</duration>";
         xml += "<type>" + type + "</type>";
+        if(dot) {
+            xml += "<dot/>";
+        }
         xml += "</note>";
     }
 

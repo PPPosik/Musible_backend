@@ -8,15 +8,16 @@ public class MidiToXML {
     public static final Map<Integer, String> step = new HashMap<>();
 
     static {
-        // TODO fix
-        type.put(128, "128th");
-        type.put(64, "64th");
-        type.put(32, "32nd");
-        type.put(16, "16th");
+        type.put(2, "32nd");
+        type.put(4, "16th");
+        type.put(6, "dot");
         type.put(8, "eighth");
-        type.put(1, "quater");
-        type.put(2, "half");
-        type.put(4, "whole");
+        type.put(12, "dot");
+        type.put(16, "quater");
+        type.put(24, "dot");
+        type.put(32, "half");
+        type.put(48, "dot");
+        type.put(64, "whole");
 
         step.put(0, "C");
         step.put(2, "D");
