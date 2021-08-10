@@ -23,7 +23,7 @@ public class MusicXMLService {
             musicXML.xmlStart();
             musicXML.makePartlist("P1", "Part 1");
             musicXML.makePartStart("P1", 1);
-            musicXML.makeAttribute(1, 0, 4, 4, "G", 2);
+            musicXML.makeAttribute(1, 0, 4, 4, "G", 2, 90);
 
             final String[] notes = data.split(" ");
             for (final String note : notes) {
@@ -44,9 +44,6 @@ public class MusicXMLService {
                     throw new NullPointerException(s[0] + " type is null");
                 }
 
-                /*
-                 * TODO BPM
-                 */
                 if (type.equals("dot")) {
                     musicXML.makeNote(step, octave, duration, MidiToXML.type.get(Integer.parseInt(s[0]) / 3 * 2), true);
                 } else {

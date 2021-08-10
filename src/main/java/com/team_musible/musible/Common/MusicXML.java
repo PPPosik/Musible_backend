@@ -35,7 +35,7 @@ public class MusicXML {
         xml += "</score-partwise>";
     }
 
-    public void makeAttribute(int divisions, int key, int beats, int beat_type, String sign, int line) {
+    public void makeAttribute(int divisions, int key, int beats, int beat_type, String sign, int line, int tempo) {
         xml += "<attributes>";
         xml += "<divisions>" + Integer.toString(divisions) + "</divisions>";
         xml += "<key><fifths>" + Integer.toString(key) + "</fifths></key>";
@@ -43,6 +43,7 @@ public class MusicXML {
                 + "</beat-type></time>";
         xml += "<clef><sign>" + sign + "</sign><line>" + Integer.toString(line) + "</line></clef>";
         xml += "</attributes>";
+        xml += "<sound tempo=\"" + Integer.toString(tempo) + "\"/>";
     }
 
     public void makeNote(String step, int octave, int duration, String type, boolean dot) {
