@@ -13,7 +13,7 @@ public class MidiToXML {
         type.put(6, "dot");
         type.put(8, "eighth");
         type.put(12, "dot");
-        type.put(16, "quater");
+        type.put(16, "quarter");
         type.put(24, "dot");
         type.put(32, "half");
         type.put(48, "dot");
