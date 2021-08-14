@@ -1,11 +1,11 @@
-package com.team_musible.musible.MusicXML;
+package com.team_musible.musible.Service;
 
 import java.io.FileWriter;
 
 import com.team_musible.musible.Common.MidiToXML;
 import com.team_musible.musible.Common.MusicXML;
-import com.team_musible.musible.MusicXML.DTO.MusicXMLDTO;
-import com.team_musible.musible.MusicXML.DTO.XMLBodyDTO;
+import com.team_musible.musible.Model.Dto.MusicXMLDTO;
+import com.team_musible.musible.Model.Dto.XMLBodyDTO;
 
 public class MusicXMLService {
     public XMLBodyDTO createXMLBody(String data) {

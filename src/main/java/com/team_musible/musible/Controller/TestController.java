@@ -1,8 +1,8 @@
-package com.team_musible.musible.Test;
+package com.team_musible.musible.Controller;
 
 import com.team_musible.musible.Common.ImageUpload;
 import com.team_musible.musible.Common.MusicFile;
-import com.team_musible.musible.Midi.MidiService;
+import com.team_musible.musible.Service.MidiService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+/*
+    Client side test controller
+ */
 
 @RestController
 @RequestMapping("/test")

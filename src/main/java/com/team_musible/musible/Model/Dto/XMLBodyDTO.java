@@ -1,4 +1,4 @@
-package com.team_musible.musible.MusicXML.DTO;
+package com.team_musible.musible.Model.Dto;
 
 public class XMLBodyDTO {
     public String xmlBody;

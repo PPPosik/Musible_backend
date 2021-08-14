@@ -1,5 +1,6 @@
-package com.team_musible.musible.Midi;
+package com.team_musible.musible.Controller;
 
+import com.team_musible.musible.Service.MidiService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

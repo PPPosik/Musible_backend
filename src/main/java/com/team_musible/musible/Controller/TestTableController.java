@@ -1,4 +1,4 @@
-package com.team_musible.musible.TestTable;
+package com.team_musible.musible.Controller;
 
 import com.team_musible.musible.Model.Entity.TestTable;
 import com.team_musible.musible.Model.Repository.TestTableRepository;

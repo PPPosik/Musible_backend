@@ -1,4 +1,4 @@
-package com.team_musible.musible.MusicXML;
+package com.team_musible.musible.Controller;
 
 import java.io.File;
 import java.util.Arrays;
@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.team_musible.musible.Common.ConvertSheet;
 import com.team_musible.musible.Common.ImageUpload;
 import com.team_musible.musible.Common.MusicFile;
-import com.team_musible.musible.MusicXML.DTO.MusicXMLDTO;
-import com.team_musible.musible.MusicXML.DTO.XMLBodyDTO;
+import com.team_musible.musible.Model.Dto.MusicXMLDTO;
+import com.team_musible.musible.Model.Dto.XMLBodyDTO;
 
+import com.team_musible.musible.Service.MusicXMLService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestPart;
