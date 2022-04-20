@@ -65,7 +65,7 @@ Muisble backend Repository
 
 ---
 #### 프로젝트 데모
-![Demo video](/readme/demo/demo.mp4)
+[Demo Video](https://user-images.githubusercontent.com/26922000/164173352-820ca807-8822-4310-bb86-3dff691dd671.mp4)
 
 ---
 #### 기타
